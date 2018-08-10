@@ -1,6 +1,11 @@
 Spellcheck
 ==========
 
+[![Build Status](https://travis-ci.org/past/spellcheck.svg?branch=master)](https://travis-ci.org/past/spellcheck)
+[![Latest version](https://img.shields.io/crates/v/spellcheck.svg)](https://crates.io/crates/spellcheck)
+[![Documentation](https://docs.rs/spellcheck/badge.svg)](https://docs.rs/spellcheck)
+![License](https://img.shields.io/crates/l/spellcheck.svg)
+
 This is a Rust implementation of Peter Norvig's statistical spell-checking
 algorithm. You can read more about the approach in the original article:
 
