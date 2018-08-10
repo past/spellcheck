@@ -1,14 +1,18 @@
 [package]
 name = "spellcheck"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Panagiotis Astithas <pastith@gmail.com>"]
 license = "MIT"
+readme = "README.md"
 repository = "https://github.com/past/spellcheck"
 documentation = "https://docs.rs/spellcheck/"
 description = """
 A spell-checker based on the statistical algorithm described by Peter Norvig
 in http://norvig.com/spell-correct.html
 """
+
+[badges]
+travis-ci = { repository = "past/spellcheck" }
 
 [dependencies]
 regex = "1"
