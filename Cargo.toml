@@ -1,0 +1,13 @@
+[package]
+name = "spellcheck"
+version = "0.1.0"
+authors = ["Panagiotis Astithas <pastith@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/past/spellcheck"
+description = """
+A spell-checker based on the statistical algorithm described by Peter Norvig
+in http://norvig.com/spell-correct.html
+"""
+
+[dependencies]
+regex = "1"
