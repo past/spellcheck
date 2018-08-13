@@ -103,4 +103,32 @@ impl Speller {
 
         results
     }
+
+}
+
+#[cfg(test)]
+mod tests {
+    use Speller;
+    use std::collections::HashMap;
+
+    #[test]
+    fn test_correcting() {
+        let mut speller = Speller {
+            letters: "abcdefghijklmnopqrstuvwxyz".to_string(),
+            n_words: HashMap::new()
+        };
+        speller.train("tomato potato");
+        // deletion
+        assert_eq!(speller.correct("tomto"), "tomato");
+        // transposition
+        assert_eq!(speller.correct("tomaot"), "tomato");
+        // alteration
+        assert_eq!(speller.correct("tomito"), "tomato");
+        assert_eq!(speller.correct("tometo"), "tomato");
+        assert_eq!(speller.correct("poteto"), "potato");
+        // insertion
+        assert_eq!(speller.correct("tomaato"), "tomato");
+        assert_eq!(speller.correct("tomarto"), "tomato");
+    }
+
 }
