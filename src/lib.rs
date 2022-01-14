@@ -33,10 +33,10 @@ impl Speller {
     }
 
     /// A function that returns the correction for the specified word.
-    pub fn correct(&mut self, word: &str) -> String {
+    pub fn correct(&mut self, word: &str) -> Option<String> {
         // A word in our word frequency map is already correct.
         if self.n_words.contains_key(word) {
-            return word.to_string();
+            return Some(word.to_string());
         }
 
         let mut candidates: HashMap<u32, String> = HashMap::new();
@@ -49,7 +49,7 @@ impl Speller {
             }
         }
         if let Some(c) = candidates.iter().max_by_key(|&entry| entry.0) {
-            return c.1.to_string();
+            return Some(c.1.to_string());
         }
 
         // Try to find candidate corrections in the edits of the edits.
@@ -61,11 +61,11 @@ impl Speller {
             }
         }
         if let Some(c) = candidates.iter().max_by_key(|&entry| entry.0) {
-            return c.1.to_string();
+            return Some(c.1.to_string());
         }
 
-        // Can't find a correction, return the input unchanged.
-        word.to_string()
+        // Can't find a correction, return None
+        None
     }
 
     /// A function that returns the set of possible corrections of the specified word.
@@ -119,16 +119,19 @@ mod tests {
         };
         speller.train("tomato potato");
         // deletion
-        assert_eq!(speller.correct("tomto"), "tomato");
+        assert_eq!(speller.correct("tomto"), Some("tomato".to_string()));
         // transposition
-        assert_eq!(speller.correct("tomaot"), "tomato");
+        assert_eq!(speller.correct("tomaot"), Some("tomato".to_string()));
         // alteration
-        assert_eq!(speller.correct("tomito"), "tomato");
-        assert_eq!(speller.correct("tometo"), "tomato");
-        assert_eq!(speller.correct("poteto"), "potato");
+        assert_eq!(speller.correct("tomito"), Some("tomato".to_string()));
+        assert_eq!(speller.correct("tometo"), Some("tomato".to_string()));
+        assert_eq!(speller.correct("poteto"), Some("potato".to_string()));
         // insertion
-        assert_eq!(speller.correct("tomaato"), "tomato");
-        assert_eq!(speller.correct("tomarto"), "tomato");
+        assert_eq!(speller.correct("tomaato"), Some("tomato".to_string()));
+        assert_eq!(speller.correct("tomarto"), Some("tomato".to_string()));
+        // no correction available
+        assert_eq!(speller.correct("egg"), None);
+        assert_eq!(speller.correct("bacon"), None);
     }
 
 }

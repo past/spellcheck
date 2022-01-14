@@ -19,5 +19,9 @@ fn main() {
     let contents = fs::read_to_string(&args[1])
         .expect("Something went wrong reading the file");
     speller.train(&contents);
-    println!("{} -> {}", &args[2], speller.correct(&args[2]));
+    if let Some(w) = speller.correct(&args[2]) {
+        println!("{} -> {}", &args[2], w);
+    } else {
+        println!("No correction available!");
+    }
 }
